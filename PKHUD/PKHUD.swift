@@ -123,7 +123,7 @@ open class PKHUD: NSObject {
     open var trailingMargin: CGFloat = 0
 
     open func show(onView view: UIView? = nil) {
-        let view: UIView = view ?? viewToPresentOn ?? UIApplication.shared.keyWindow!
+        let view: UIView = view ?? viewToPresentOn ?? UIApplication.shared.mainWindow!
         if  !view.subviews.contains(container) {
             view.addSubview(container)
             container.frame.origin = CGPoint.zero
@@ -227,5 +227,11 @@ open class PKHUD: NSObject {
         if (graceTimer?.isValid)! {
             showContent()
         }
+    }
+}
+
+extension UIApplication {
+    @objc var mainWindow: UIWindow? {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }
     }
 }
